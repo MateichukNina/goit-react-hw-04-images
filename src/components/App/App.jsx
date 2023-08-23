@@ -34,9 +34,6 @@ export const App = () => {
   // const loadImage = async () => {
   //   query.slice(this.state.query.indexOf('/') + 1), page;
   // }, [query, page]);
-
-
-
   // useEffect(() => {
   //   if (query && (query !== prevState.query || page !== prevState.page)) {
   //     fetchImage()
