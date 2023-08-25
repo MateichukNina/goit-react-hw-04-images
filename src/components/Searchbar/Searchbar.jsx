@@ -3,7 +3,7 @@ import { Form, FormButton,Input } from './Searchbar.styled';
 
 
 export const Searchbar = ({ onSubmit }) => {
-  console.log('Form submitted');
+  
   return (
     <div>
       <Form onSubmit={onSubmit}>

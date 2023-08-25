@@ -6,30 +6,34 @@ import { toast } from 'react-hot-toast';
 import { Button } from '../Button/Button';
 import { Wrapper } from './App.styled';
 import { GlobalStyle } from 'components/GlobalStyle';
+import { Toaster } from 'react-hot-toast';
 
 export const App = () => {
   const [query, setQuery] = useState('');
   const [images, setImages] = useState([]);
   const [page, setPage] = useState(1);
 
-
-
   useEffect(() => {
     const loadImage = async () => {
-      if (query && (query !== 'prevQuery.current '|| page !== 1)) {
+      if (query && (query !== 'prevQuery.current ' || page !== 1)) {
         try {
-          const img = await fetchImage(query.slice(query.indexOf('/') + 1), page);
+          const img = await fetchImage(
+            query.slice(query.indexOf('/') + 1),
+            page
+          );
           setImages(prevImages => [...prevImages, ...img]);
-         
+          toast.success(
+            <div>
+              I like <b>{query}</b> too!
+            </div>,)
         } catch (error) {
-          console.log(error);
+          toast.error('Sorry, there are no images matching your search query. Please try again.');
         }
       }
     };
 
     loadImage();
   }, [query, page]);
-
 
   // const loadImage = async () => {
   //   query.slice(this.state.query.indexOf('/') + 1), page;
@@ -45,8 +49,6 @@ export const App = () => {
   //       });
   //   }
   // }, [query, page]);
-
-
 
   const changeQuery = newQuery => {
     setQuery(`${Date.now()}/${newQuery}`);
@@ -70,6 +72,7 @@ export const App = () => {
 
   return (
     <Wrapper>
+      <Toaster position="top-right" reverseOrder={false} />
       <Searchbar onSubmit={handleSubmit} />
       <ImageGallery images={images} />
       {images.length > 0 && (
