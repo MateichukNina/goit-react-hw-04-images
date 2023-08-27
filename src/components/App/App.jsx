@@ -17,14 +17,18 @@ export const App = () => {
     const loadImage = async () => {
       if (query && (query !== 'prevQuery.current ' || page !== 1)) {
         try {
+          const idQuery = query.split('/');
+          const realQuery = idQuery[1];
+
           const img = await fetchImage(
+          
             query.slice(query.indexOf('/') + 1),
             page
           );
           setImages(prevImages => [...prevImages, ...img]);
           toast.success(
             <div>
-              I like <b>{query}</b> too!
+              I like <b>{realQuery}</b> too!
             </div>,)
         } catch (error) {
           toast.error('Sorry, there are no images matching your search query. Please try again.');
